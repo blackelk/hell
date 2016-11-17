@@ -1,6 +1,6 @@
 hell
 ====
-Releaves pain of debug.
+Relieves pain of debug.
 
 
 ## Installing
@@ -36,12 +36,12 @@ In hell there is a collection of functions with short uppercase names. Most of t
 + underline
 
 ### Configuration
-hell has Config class that can be configured. Options are:
+There is Config class to adjust hell. Options are:
 
-| option          | default    | description                                      |
-| --------------- | ---------- | ------------------------------------------------ |
-| C_DEFAULT_COLOR | 'green'    | Default color of C() output                      |
-| OUT             | sys.stdout | Writable file-like object to redirect output to. |
+| option            | default    | description                                      |
+| ----------------- | ---------- | ------------------------------------------------ |
+| C\_DEFAULT\_COLOR | 'green'    | Default color of C() output                      |
+| OUT               | sys.stdout | Writable file-like object to redirect output to. |
 
 Example configuration change:
 ```python
@@ -49,15 +49,17 @@ import hell
 hell.Config.OUT = open('/tmp/debug.out', 'a')
 ```
 
+
 ## Tools
 
-### C(\*args, sep=' ', end='\n', c='C_DEFAULT_COLOR', b=None, a=None)
+
+### C(\*args, sep=' ', end='\\n', c='C\_DEFAULT\_COLOR', b=None, a=None)
 
 Print colorized *args*, colorized and formatted according to kwargs.
 
-| kwarg | description      | default |
-| ----- | ---------------- | ------- |
-| c     | color            | 'C_DEFAULT_COLOR' |
+| kwarg | description      | default             |
+| ----- | ---------------- | ------------------- |
+| c     | color            | 'C\_DEFAULT\_COLOR' |
 | b     | background color |
 | a     | attributes, str like 'bold' or list of strings like ['bold', 'underline'] |
 | sep   | separator, same as in built-in print                                      |
@@ -70,11 +72,14 @@ C('Some', 'variables')
 C('debug note', c='yellow', b='white', a='underline')
 C(123, 456, sep='|', end='.')
 ```
----
-### P(\*args, sep=' ', end='\n')
+
+
+----
+### P(\*args, sep=' ', end='\\n')
 Shortcut for built-in function **print** writing to Config.OUT
 
----
+
+----
 ### PP(obj, indent=4, width=80, depth=None, compact=False, c=None, b=None, a=None)
 Pretty-print colorized python object.
 
