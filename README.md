@@ -36,7 +36,7 @@ In hell there is a collection of functions with short uppercase names. Most of t
 + underline
 
 ### Configuration
-There is Config class to adjust hell. Options are:
+There is `Config` class to adjust hell. Options are:
 
 | option            | default    | description                                      |
 | ----------------- | ---------- | ------------------------------------------------ |
@@ -53,9 +53,9 @@ hell.Config.OUT = open('/tmp/debug.out', 'a')
 ## Tools
 
 
-### C(\*args, sep=' ', end='\\n', c='C\_DEFAULT\_COLOR', b=None, a=None)
+**C**(\*_args_, _sep=' '_, _end='\\n'_, _c='C\_DEFAULT\_COLOR'_, _b=None_, _a=None_)
 
-Print colorized *args*, colorized and formatted according to kwargs.
+Print _args_, colorized and formatted according to kwargs.
 
 | kwarg | description      | default             |
 | ----- | ---------------- | ------------------- |
@@ -74,13 +74,17 @@ C(123, 456, sep='|', end='.')
 ```
 
 
+<br />
 ----
-### P(\*args, sep=' ', end='\\n')
-Shortcut for built-in function **print** writing to Config.OUT
+**P**(\*_args_, _sep=' '_, _end='\\n'_)
+
+Shortcut for built-in function _print_ writing to `Config.OUT`
 
 
+<br />
 ----
-### PP(obj, indent=4, width=80, depth=None, compact=False, c=None, b=None, a=None)
+**PP**(_obj_, _indent=4_, _width=80_, _depth=None_, _compact=False_, _c=None_, _b=None_, _a=None_)
+
 Pretty-print colorized python object.
 
 | kwarg   | description                                          | default |
