@@ -1,6 +1,6 @@
 hell
 ====
-Relieves pain of debug.
+When you've got to debug your code.
 
 
 ## Installing
@@ -41,6 +41,7 @@ There is `Config` class to adjust hell. Options are:
 | option            | default    | description                                      |
 | ----------------- | ---------- | ------------------------------------------------ |
 | C\_DEFAULT\_COLOR | 'green'    | Default color of C() output                      |
+| F\_TEMPLATE       | '--> {filename} line {lineno} {funcname}()'    | Format string used in F() |
 | OUT               | sys.stdout | Writable file-like object to redirect output to. |
 
 Example configuration change:
@@ -71,6 +72,40 @@ from hell import C
 C('Some', 'variables')
 C('debug note', c='yellow', b='white', a='underline')
 C(123, 456, sep='|', end='.')
+```
+
+
+<br />
+----
+**F**(_frame=None_, _c=None_, _b=None_, _a=None)_
+
+_"Where am I?"_
+
+Print info about stack frame.
+
+If _frame_ is not provided, frame called F() will be used.
+
+Info includes:
+- python filename
+- line number
+- name of function that called F.
+- name of type if function is its method or classmethod
+
+Info is being formatted using `Config.F_TEMPLATE`
+
+_c_, _b_, _a_ are optional termcolor related arguments.
+See C() for details.
+
+Example usage:
+
+```python
+class Class:
+    def function(self):
+        F()
+```
+Will print:
+```
+/path/to/module.py line 105 Class.function()
 ```
 
 

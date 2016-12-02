@@ -7,7 +7,7 @@ setup(
     name='hell',
     version=hell.__version__,
 
-    description='Relieves pain of debug.',
+    description="When you've got to debug your code.",
 
     url='https://github.com/blackelk/hell',
 

@@ -1,3 +1,4 @@
+import inspect
 import pprint
 import sys
 
@@ -8,14 +9,16 @@ __author__ = 'Constantine Parkhimovich'
 __copyright__ = 'Copyright 2016 Constantine Parkhimovich'
 __license__ = 'MIT'
 __title__ = 'hell'
-__version__ = '0.1.0'
+__version__ = '0.2.0'
 
-__all__ = ['Config', 'C', 'P', 'PP']
+__all__ = ['Config', 'C', 'F', 'P', 'PP']
 
 
 class Config:
     # Default color of C() output.
     C_DEFAULT_COLOR = 'green'
+    # Format string used in F()
+    F_TEMPLATE = '--> {filename} line {lineno} {funcname}()'
     # Writable file-like object to redirect output to.
     OUT = sys.stdout
 
@@ -80,5 +83,85 @@ def PP(obj, indent=4, width=80, depth=None, compact=False, c=None, b=None, a=Non
     """
     text = pprint.pformat(obj, indent=indent, width=width, depth=depth,
                           compact=compact)
+    C(text, c=c, b=b, a=a)
+
+
+def F(frame=None, c=None, b=None, a=None):
+    """
+    "Where am I?"
+
+    Print info about stack frame.
+
+    If frame is not provided, frame called F() will be used.
+
+    Info includes:
+        python filename
+        line number
+        name of function that called F.
+        name of type if function is its method or classmethod
+
+    Info is being formatted using Config.F_TEMPLATE
+
+    c, b, a are optional termcolor related arguments.
+    See docstring of C() for details.
+
+    Example usage:
+
+    class Class:
+        def function(self):
+            F()
+
+    Will print '/path/to/module.py line 114 Class.function()'
+
+    """
+    if frame is None:
+        frame = inspect.currentframe().f_back
+
+    filename = frame.f_code.co_filename
+    lineno = frame.f_lineno
+    funcname = frame.f_code.co_name
+
+    # Caller function could actually be a method of some object.
+    # If so, the first argument is that object.
+    obj = None
+    argvalues = inspect.getargvalues(frame)
+    if argvalues.args:
+        first_arg = argvalues.locals[argvalues.args[0]]
+    elif argvalues.varargs:
+        varargs = argvalues.locals[argvalues.varargs]
+        if varargs:
+            first_arg = varargs[0]
+        else:
+            first_arg = None
+    else:
+        first_arg = None
+
+    if first_arg is not None:
+        try:
+            fn = inspect.getattr_static(first_arg, funcname)
+        except AttributeError:
+            fn = None
+        else:
+            # Caller is likely a method, or classmethod, or descriptor.
+            # Check its code to make sure.
+            fn = inspect.unwrap(fn)
+            if isinstance(fn, (classmethod)) or funcname == '__new__':
+                fn = getattr(fn, '__func__', None)
+            elif isinstance(fn, property):
+                fn = getattr(fn, 'fget', None)
+            fn = inspect.unwrap(fn)
+            funcname = getattr(fn, '__qualname__', funcname)
+            assert not hasattr(fn, '__func__')
+            f_code = getattr(fn, '__code__', None)
+            if f_code is frame.f_code:
+                obj = first_arg
+
+    kwargs = {
+        'filename': filename,
+        'lineno': lineno,
+        'funcname': funcname,
+    }
+    text = Config.F_TEMPLATE.format(**kwargs)
+
     C(text, c=c, b=b, a=a)
 
