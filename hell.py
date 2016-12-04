@@ -9,9 +9,30 @@ __author__ = 'Constantine Parkhimovich'
 __copyright__ = 'Copyright 2016 Constantine Parkhimovich'
 __license__ = 'MIT'
 __title__ = 'hell'
-__version__ = '0.2.0'
+__version__ = '0.2.1'
 
 __all__ = ['Config', 'C', 'F', 'P', 'PP']
+
+
+COLOR_SHORTCUTS = {
+    'b': 'blue',
+    'c': 'cyan',
+    'g': 'green',
+    # Threre is no shortcut for 'grey'
+    'm': 'magenta',
+    'r': 'red',
+    'w': 'white',
+    'y': 'yellow'
+}
+
+ATTR_SHORTCUTS = {
+    'b': 'bold',
+    # Threre is no shortcut for 'blink'
+    'c': 'concealed',
+    'd': 'dark',
+    'r': 'reverse',
+    'u': 'underline'
+}
 
 
 class Config:
@@ -43,30 +64,45 @@ def C(*args, sep=' ', end='\n', c='C_DEFAULT_COLOR', b=None, a=None):
     c is for color, b is for background, a is for attributes.
 
     Available text colors:
-        red, green, yellow, blue, magenta, cyan, white.
+        red, green, blue, cyan, magenta, yellow, white, grey.
 
     Available background colors:
         red, green, yellow, blue, magenta, cyan, white.
     It is possible to use termcolor-like variants:
         on_red, on_green etc.
 
+    color and background color can be passed as single letters:
+        r, g, b, c, m, y, w. grey has no shortcut.
+
     Available attributes:
-        bold, dark, underline, blink, reverse, concealed.
+        bold, concealed, dark, reverse, underline, blink.
+    Single letters can be passed as shortcuts:
+        b, c, d, r, u. blink has no shortcut.
     Single attribute can be passed as string,
         multiple attributes should be passed as list of strings.
     """
-    if c == 'C_DEFAULT_COLOR':
-        c = Config.C_DEFAULT_COLOR
+
+    if c is not None:
+        if len(c) == 1:
+            c = COLOR_SHORTCUTS[c]
+        if c == 'C_DEFAULT_COLOR':
+            c = Config.C_DEFAULT_COLOR
  
-    text = print_to_str(*args, sep=sep, end=end)
- 
-    if isinstance(b, str) and not b.startswith('on_'):
-        b = 'on_' + b
+    if b is not None:
+        if len(b) == 1:
+            b = COLOR_SHORTCUTS[b]
+        if not b.startswith('on_'):
+            b = 'on_' + b
  
     if isinstance(a, str):
         a = [a]
- 
+    if a is not None:
+        a = [ATTR_SHORTCUTS[attr] if len(attr) == 1 else attr for attr in a]
+
+    text = print_to_str(*args, sep=sep, end=end)
+
     text = termcolor.colored(text, color=c, on_color=b, attrs=a)
+
     Config.OUT.write(text)
 
 

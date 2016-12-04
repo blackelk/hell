@@ -1,3 +1,7 @@
+## 0.2.1
+2016 Dec 4
+Shortcuts for colors and attributes
+
 ## 0.2.0
 2016 Dec 2
 - F

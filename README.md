@@ -18,22 +18,29 @@ pip install hell
 In hell there is a collection of functions with short uppercase names. Most of them print colorized formatted output. Most of them accept short keyword arguments as options.
 
 ### Colors
++ red
++ green (default)
 + blue
 + cyan
-+ green (default)
-+ grey
 + magenta
-+ red
-+ white
 + yellow
++ white
++ grey
+
+The first letters are shortcuts for colors:
+`r`, `g`, `b`, `c`, `m`, `y`, `w` . grey has no shortcut.
 
 ### Attributes
-+ blink
 + bold
 + concealed
 + dark
 + reverse
 + underline
++ blink
+
+The first letters can be used as well:
+`b`, `c`, `d`, `r`, `u`. blink has no shortcut.
+
 
 ### Configuration
 There is `Config` class to adjust hell. Options are:
@@ -71,6 +78,8 @@ Examples:
 from hell import C
 C('Some', 'variables')
 C('debug note', c='yellow', b='white', a='underline')
+C('shortcuts', c='y', b='w', a='u') # yellow underlined on white
+C('multiple attributes', a=['bold', 'underline'])
 C(123, 456, sep='|', end='.')
 ```
 
