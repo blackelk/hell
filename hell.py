@@ -9,7 +9,7 @@ __author__ = 'Constantine Parkhimovich'
 __copyright__ = 'Copyright 2016 Constantine Parkhimovich'
 __license__ = 'MIT'
 __title__ = 'hell'
-__version__ = '0.2.1'
+__version__ = '0.2.2'
 
 __all__ = ['Config', 'C', 'F', 'P', 'PP']
 
@@ -78,8 +78,12 @@ def C(*args, sep=' ', end='\n', c='C_DEFAULT_COLOR', b=None, a=None):
         bold, concealed, dark, reverse, underline, blink.
     Single letters can be passed as shortcuts:
         b, c, d, r, u. blink has no shortcut.
-    Single attribute can be passed as string,
-        multiple attributes should be passed as list of strings.
+    Single attribute can be passed as string:
+        C(123, a='underline')
+    multiple attributes can be passed as space-delimited string
+        or list of strings:
+        C(456, a='underline bold')
+        C(789, a=['underline', 'b'])
     """
 
     if c is not None:
@@ -95,7 +99,7 @@ def C(*args, sep=' ', end='\n', c='C_DEFAULT_COLOR', b=None, a=None):
             b = 'on_' + b
  
     if isinstance(a, str):
-        a = [a]
+        a = a.split()
     if a is not None:
         a = [ATTR_SHORTCUTS[attr] if len(attr) == 1 else attr for attr in a]
 

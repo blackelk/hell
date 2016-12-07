@@ -69,7 +69,7 @@ Print _args_, colorized and formatted according to kwargs.
 | ----- | ---------------- | ------------------- |
 | c     | color            | 'C\_DEFAULT\_COLOR' |
 | b     | background color |
-| a     | attributes, str like 'bold' or list of strings like ['bold', 'underline'] |
+| a     | attributes, str like 'bold' or 'b u' or list of strings like ['bold', 'underline'] |
 | sep   | separator, same as in built-in print                                      |
 | end   | end, same as in built-in print                                            |
 
@@ -80,6 +80,8 @@ C('Some', 'variables')
 C('debug note', c='yellow', b='white', a='underline')
 C('shortcuts', c='y', b='w', a='u') # yellow underlined on white
 C('multiple attributes', a=['bold', 'underline'])
+C('multiple attributes as space-delimited string', a='bold underline')
+C('multiple attributes as space-delimited string with shortcuts', a='b u')
 C(123, 456, sep='|', end='.')
 ```
 
