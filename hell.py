@@ -102,6 +102,9 @@ def C(*args, sep=' ', end='\n', c='C_DEFAULT_COLOR', b=None, a=None):
         a = a.split()
     if a is not None:
         a = [ATTR_SHORTCUTS[attr] if len(attr) == 1 else attr for attr in a]
+        # Unique attrs, preserve order.
+        a_unique = set()
+        a = [attr for attr in a if not(attr in a_unique or a_unique.add(attr))]
 
     text = print_to_str(*args, sep=sep, end=end)
 
