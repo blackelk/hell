@@ -113,7 +113,7 @@ def C(*args, sep=' ', end='\n', c='C_DEFAULT_COLOR', b=None, a=None):
     Config.OUT.write(text)
 
 
-def PP(obj, indent=4, width=80, depth=None, compact=False, c=None, b=None, a=None):
+def PP(obj, indent=4, width=80, depth=None, *, compact=False, c=None, b=None, a=None):
     """
     Pretty-print colorized python object.
 
@@ -124,8 +124,7 @@ def PP(obj, indent=4, width=80, depth=None, compact=False, c=None, b=None, a=Non
                 on each output line
     c, b, a     see C().
     """
-    text = pprint.pformat(obj, indent=indent, width=width, depth=depth,
-                          compact=compact)
+    text = pprint.pformat(obj, indent, width, depth, compact=compact)
     C(text, c=c, b=b, a=a)
 
 
@@ -166,7 +165,7 @@ def F(frame=None, c=None, b=None, a=None):
 
     # Caller function could actually be a method of some object.
     # If so, the first argument is that object.
-    obj = None
+    #obj = None
     argvalues = inspect.getargvalues(frame)
     if argvalues.args:
         first_arg = argvalues.locals[argvalues.args[0]]
@@ -188,16 +187,16 @@ def F(frame=None, c=None, b=None, a=None):
             # Caller is likely a method, or classmethod, or descriptor.
             # Check its code to make sure.
             fn = inspect.unwrap(fn)
-            if isinstance(fn, (classmethod)) or funcname == '__new__':
+            if isinstance(fn, classmethod) or funcname == '__new__':
                 fn = getattr(fn, '__func__', None)
             elif isinstance(fn, property):
                 fn = getattr(fn, 'fget', None)
             fn = inspect.unwrap(fn)
-            funcname = getattr(fn, '__qualname__', funcname)
             assert not hasattr(fn, '__func__')
-            f_code = getattr(fn, '__code__', None)
-            if f_code is frame.f_code:
-                obj = first_arg
+            funcname = getattr(fn, '__qualname__', funcname)
+            #f_code = getattr(fn, '__code__', None)
+            #if f_code is frame.f_code:
+            #    obj = first_arg
 
     kwargs = {
         'filename': filename,

@@ -88,7 +88,6 @@ class Class2:
         return object.__new__(cls)
 
 
-
 class MetaClass(type):
 
     def __init__(self, *a):
