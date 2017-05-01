@@ -25,7 +25,7 @@ def fn3():
 
 def gen1():
     F()
-    yield from range(1)
+    yield 0
 
 
 la1 = lambda : F()
@@ -79,7 +79,7 @@ class Class:
 
     def gen2(self):
         F()
-        yield from range(1)
+        yield 0
 
 
 class Class2:

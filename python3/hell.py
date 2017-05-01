@@ -9,7 +9,7 @@ __author__ = 'Constantine Parkhimovich'
 __copyright__ = 'Copyright 2016 Constantine Parkhimovich'
 __license__ = 'MIT'
 __title__ = 'hell'
-__version__ = '0.2.2'
+__version__ = '0.2.3'
 
 __all__ = ['Config', 'C', 'F', 'P', 'PP']
 

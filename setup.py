@@ -1,7 +1,10 @@
 from setuptools import setup
+import sys
 
 import hell
 
+
+pkgdir = {'': 'python%s' % sys.version_info[0]}
 
 setup(
     name='hell',
@@ -18,6 +21,7 @@ setup(
 
     keywords='debug',
 
+    package_dir=pkgdir,
     py_modules=['hell'],
 
     install_requires=['termcolor'],
