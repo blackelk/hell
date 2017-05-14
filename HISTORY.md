@@ -1,3 +1,7 @@
+## 0.2.4
+2017 May 15
+- Ported to python2.7
+
 ## 0.2.3
 2017 Jan 30
 - Unit tests

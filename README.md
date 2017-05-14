@@ -9,7 +9,7 @@ pip install hell
 ```
 
 ### Requirements
-**python 3.4+**
+hell supports **python 3.4+** and **2.7**
 
 [termcolor](https://pypi.python.org/pypi/termcolor)
 
@@ -138,7 +138,7 @@ Pretty-print colorized python object.
 | indent  | amount of indentation added for each recursive level | 4
 | width   | desired output width                                 | 80
 | depth   | number of levels which may be printed                | not limited
-| compact | format as many items as will fit within the width <br /> on each output line | False
+| compact<br />(python3)| format as many items as will fit within the width<br /> on each output line | False
 | c       | text color, see function C                           | None
 | b       | background color, see function C                     | None
 | a       | attributes, see function C                           | None
