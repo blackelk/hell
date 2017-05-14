@@ -1,10 +1,14 @@
+## 0.2.3
+2017 Jan 30
+- Unit tests
+
 ## 0.2.2
 2016 Dec 7
-Multiple attributes as space-delimited string
+- Multiple attributes as space-delimited string
 
 ## 0.2.1
 2016 Dec 4
-Shortcuts for colors and attributes
+- Shortcuts for colors and attributes
 
 ## 0.2.0
 2016 Dec 2
