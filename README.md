@@ -87,7 +87,8 @@ C(123, 456, sep='|', end='.')
 
 
 <br />
-----
+
+- - - -
 **F**(_frame=None_, _c=None_, _b=None_, _a=None_)
 
 _"Where am I?"_
@@ -121,7 +122,8 @@ Will print:
 
 
 <br />
-----
+
+- - - -
 **I**(_banner=''_, _call\_f=True_,_c=None_, _b=None_, _a=None_)
 
 Emulate interactive Python console.
@@ -138,14 +140,16 @@ See C() for details.
 
 
 <br />
-----
+
+- - - -
 **P**(\*_args_, _sep=' '_, _end='\\n'_)
 
 Shortcut for built-in function _print_ writing to `Config.OUT`
 
 
 <br />
-----
+
+- - - -
 **PP**(_obj_, _indent=4_, _width=80_, _depth=None_, _compact=False_, _c=None_, _b=None_, _a=None_)
 
 Pretty-print colorized python object.
