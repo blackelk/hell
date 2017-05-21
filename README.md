@@ -88,7 +88,7 @@ C(123, 456, sep='|', end='.')
 
 <br />
 ----
-**F**(_frame=None_, _c=None_, _b=None_, _a=None)_
+**F**(_frame=None_, _c=None_, _b=None_, _a=None_)
 
 _"Where am I?"_
 
@@ -118,6 +118,23 @@ Will print:
 ```
 /path/to/module.py line 105 Class.function()
 ```
+
+
+<br />
+----
+**I**(_banner=''_, _call\_f=True_,_c=None_, _b=None_, _a=None_)
+
+Emulate interactive Python console.
+
+Current locals and globals will be available.
+
+banner will be printed before first interaction.
+    see built-in code.InteractiveConsole.interact for banner.
+
+When _call\_f_ is true, F() will be called printing info where I() was called.
+
+_c_, _b_, _a_ are optional termcolor related arguments.
+See C() for details.
 
 
 <br />

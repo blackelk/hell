@@ -1,20 +1,31 @@
 from __future__ import print_function
 
-__author__ = 'Constantine Parkhimovich'
-__copyright__ = 'Copyright 2016 Constantine Parkhimovich'
-__license__ = 'MIT'
-__title__ = 'hell'
-__version__ = '0.2.4'
-
+import code
 import inspect
 import pprint
 import sys
+import types
 
 import termcolor
 
-########################### getattr_static ##################################
-import types
+try:
+    import readline
+except ImportError:
+    readline = None
+else:
+    import rlcompleter
 
+
+__author__ = 'Constantine Parkhimovich'
+__copyright__ = 'Copyright 2016-2017 Constantine Parkhimovich'
+__license__ = 'MIT'
+__title__ = 'hell'
+__version__ = '0.3.0'
+
+__all__ = ['Config', 'C', 'F', 'I', 'P', 'PP']
+
+
+########################### getattr_static ##################################
 
 _sentinel = object()
 
@@ -349,4 +360,38 @@ def F(frame=None, c=None, b=None, a=None):
     text = Config.F_TEMPLATE.format(**kwargs)
 
     C(text, c=c, b=b, a=a)
+
+
+def I(banner='', call_f=True, c=None, b=None, a=None):
+    """
+    Emulate interactive Python console.
+
+    Current locals and globals will be available.
+
+    banner will be printed before first interaction.
+        see built-in code.InteractiveConsole.interact for banner.
+
+    When call_f is true, F() will be called printing info where I() was called.
+
+    c, b, a are optional termcolor related arguments.
+    """
+
+    frame = inspect.currentframe().f_back
+
+    ns = frame.f_globals.copy()
+    ns.update(frame.f_locals)
+
+    if readline:
+        readline.parse_and_bind('tab: complete')
+
+    if call_f:
+        F(frame, c=c, b=b, a=a)
+
+    if banner:
+        C(banner, c=c, b=b, a=a)
+
+    if banner is None:
+        code.interact(local=ns)
+    else:
+        code.interact('', local=ns)
 
