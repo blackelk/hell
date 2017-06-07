@@ -20,7 +20,7 @@ __author__ = 'Constantine Parkhimovich'
 __copyright__ = 'Copyright 2016-2017 Constantine Parkhimovich'
 __license__ = 'MIT'
 __title__ = 'hell'
-__version__ = '0.3.0'
+__version__ = '0.3.1'
 
 __all__ = ['Config', 'C', 'F', 'I', 'P', 'PP']
 
@@ -188,6 +188,7 @@ def P(*args, **kwargs):
     """
     sep = force_unicode(kwargs.get('sep', u' '))
     end = force_unicode(kwargs.get('end', u'\n'))
+
     for k in kwargs:
         if k not in {'sep', 'end'}:
             raise TypeError('{} is an invalid keyword argument for this function'.format(k))
@@ -362,14 +363,17 @@ def F(frame=None, c=None, b=None, a=None):
     C(text, c=c, b=b, a=a)
 
 
-def I(banner='', call_f=True, c=None, b=None, a=None):
+def I(banner='', ipython=True, call_f=True, c=None, b=None, a=None):
     """
     Emulate interactive Python console.
 
     Current locals and globals will be available.
 
     banner will be printed before first interaction.
-        see built-in code.InteractiveConsole.interact for banner.
+    banner=None is for printing default console banner.
+    See built-in code.InteractiveConsole.interact.
+
+    ipython=True indicates using IPython console if available.
 
     When call_f is true, F() will be called printing info where I() was called.
 
@@ -388,10 +392,28 @@ def I(banner='', call_f=True, c=None, b=None, a=None):
         F(frame, c=c, b=b, a=a)
 
     if banner:
-        C(banner, c=c, b=b, a=a)
+        C(banner, c=c, b=b, a=a, end='')
 
-    if banner is None:
-        code.interact(local=ns)
+    if ipython:
+        try:
+            import IPython
+        except ImportError:
+            ipython = False
+
+    if ipython:
+        func = IPython.embed
+        kwargs = {
+            'confirm_exit': False,
+            'user_ns': ns
+        }
+        if banner is not None:
+            kwargs['display_banner'] = False
     else:
-        code.interact('', local=ns)
+        func = code.interact
+        kwargs = {'local': ns}
+        if banner is not None:
+            kwargs['banner'] = ''
+
+    print('.')
+    func(**kwargs)
 

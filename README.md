@@ -124,14 +124,17 @@ Will print:
 <br />
 
 - - - -
-**I**(_banner=''_, _call\_f=True_,_c=None_, _b=None_, _a=None_)
+**I**(_banner=''_, _ipython=True_, _call\_f=True_,_c=None_, _b=None_, _a=None_)
 
 Emulate interactive Python console.
 
 Current locals and globals will be available.
 
-banner will be printed before first interaction.
-    see built-in code.InteractiveConsole.interact for banner.
+_banner_ will be printed before first interaction. <br />
+_banner=None_ is for printing default console banner. <br />
+See built-in code.InteractiveConsole.interact.
+
+_ipython=True_ indicates using IPython console if available.
 
 When _call\_f_ is true, F() will be called printing info where I() was called.
 
