@@ -20,9 +20,17 @@ __author__ = 'Constantine Parkhimovich'
 __copyright__ = 'Copyright 2016-2017 Constantine Parkhimovich'
 __license__ = 'MIT'
 __title__ = 'hell'
-__version__ = '0.3.1'
+__version__ = '0.3.2'
 
-__all__ = ['Config', 'C', 'F', 'I', 'P', 'PP']
+__all__ = [
+    'Config',
+    'C',
+    'F',
+    'I',
+    'L',
+    'P',
+    'PP',
+]
 
 
 ########################### getattr_static ##################################
@@ -417,3 +425,9 @@ def I(banner='', ipython=True, call_f=True, c=None, b=None, a=None):
     print('.')
     func(**kwargs)
 
+
+def L(s, c=None, b=None, a=None):
+    """
+    Print the length of s, colorized and formatted according to keyword arguments.
+    """
+    C(len(s), c=c, b=b, a=a)
