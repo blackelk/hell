@@ -156,6 +156,17 @@ See C() for details.
 <br />
 
 - - - -
+**T**(_obj_, _c=None_, _b=None_, _a=None_)
+
+Print the type of _obj_, colorized and formatted according to keyword arguments.
+
+_c_, _b_, _a_ are optional termcolor related arguments.
+See C() for details.
+
+
+<br />
+
+- - - -
 **P**(\*_args_, _sep=' '_, _end='\\n'_)
 
 Shortcut for built-in function _print_ writing to `Config.OUT`

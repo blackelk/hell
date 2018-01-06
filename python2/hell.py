@@ -17,10 +17,10 @@ else:
 
 
 __author__ = 'Constantine Parkhimovich'
-__copyright__ = 'Copyright 2016-2017 Constantine Parkhimovich'
+__copyright__ = 'Copyright 2016-2018 Constantine Parkhimovich'
 __license__ = 'MIT'
 __title__ = 'hell'
-__version__ = '0.3.2'
+__version__ = '0.3.3'
 
 __all__ = [
     'Config',
@@ -30,6 +30,7 @@ __all__ = [
     'L',
     'P',
     'PP',
+    'T',
 ]
 
 
@@ -431,3 +432,10 @@ def L(s, c=None, b=None, a=None):
     Print the length of s, colorized and formatted according to keyword arguments.
     """
     C(len(s), c=c, b=b, a=a)
+
+
+def T(obj, c=None, b=None, a=None):
+    """
+    Print the type of obj, colorized and formatted according to keyword arguments.
+    """
+    C(type(obj), c=c, b=b, a=a)
