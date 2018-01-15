@@ -17,7 +17,7 @@ __author__ = 'Constantine Parkhimovich'
 __copyright__ = 'Copyright 2016-2018 Constantine Parkhimovich'
 __license__ = 'MIT'
 __title__ = 'hell'
-__version__ = '0.3.3'
+__version__ = '0.3.4'
 
 __all__ = [
     'Config',
@@ -25,6 +25,7 @@ __all__ = [
     'F',
     'I',
     'L',
+    'M',
     'P',
     'PP',
     'T',
@@ -284,6 +285,25 @@ def L(s, c=None, b=None, a=None):
     Print the length of s, colorized and formatted according to keyword arguments.
     """
     C(len(s), c=c, b=b, a=a)
+
+
+def M(obj, c=None, b=None, a=None, sep=' | '):
+    """
+    Print the base classes of type of the obj,
+    or of the obj itself when it is a type.
+    Bases will be in Method Resolution Order,
+    separated with sep,
+    colorized and formatted according to keyword arguments.
+    """
+    if inspect.isclass(obj):
+        cls = obj
+    else:
+        cls = type(obj)
+
+    bases = inspect.getmro(cls)
+    text = sep.join([str(b.__qualname__) for b in bases])
+
+    C(text, c=c, b=b, a=a)
 
 
 def T(obj, c=None, b=None, a=None):
