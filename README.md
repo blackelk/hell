@@ -157,8 +157,10 @@ See C() for details.
 
 - - - -
 **M**(_obj_, _c=None_, _b=None_, _a=None_)
+
 Print the base classes of type of the _obj_,
 or of the _obj_ itself when it is a type.
+
 Bases will be in Method Resolution Order,
 separated with _sep_,
 colorized and formatted according to keyword arguments.
