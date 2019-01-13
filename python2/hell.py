@@ -17,10 +17,10 @@ else:
 
 
 __author__ = 'Constantine Parkhimovich'
-__copyright__ = 'Copyright 2016-2018 Constantine Parkhimovich'
+__copyright__ = 'Copyright 2016-2019 Constantine Parkhimovich'
 __license__ = 'MIT'
 __title__ = 'hell'
-__version__ = '0.3.4'
+__version__ = '0.4.0'
 
 __all__ = [
     'Config',
@@ -146,7 +146,6 @@ def _getattr_base_static(obj, attr):
             return base.__dict__[attr], base
 
     raise AttributeError(attr)
-
 
 #############################################################################
 
@@ -428,11 +427,28 @@ def I(banner='', ipython=True, call_f=True, c=None, b=None, a=None):
     func(**kwargs)
 
 
-def L(s, c=None, b=None, a=None):
+class _LType:
     """
-    Print the length of s, colorized and formatted according to keyword arguments.
+    Inspect length of a sized object.
+
+    Can be used as function:
+    >>> L('abc', c='b', a='underline')
+    'abc'
+
+    Or returns length with "pipe":
+    >>> 'abc' | L
+    3
     """
-    C(len(s), c=c, b=b, a=a)
+    def __ror__(self, sized):
+        return len(sized)
+
+    def __call__(self, sized, c=None, b=None, a=None):
+        """
+        Print the length of sized, colorized and formatted according to keyword arguments.
+        """
+        C(len(sized), c=c, b=b, a=a)
+
+L = _LType()
 
 
 def M(obj, c=None, b=None, a=None, sep=' | '):

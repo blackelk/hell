@@ -145,13 +145,22 @@ See C() for details.
 <br />
 
 - - - -
-**L**(_s_, _c=None_, _b=None_, _a=None_)
+**L**(_sized_, _c=None_, _b=None_, _a=None_)
 
-Print the length of _s_, colorized and formatted according to keyword arguments.
+Print the length of _sized_, colorized and formatted according to keyword arguments.
 
 _c_, _b_, _a_ are optional termcolor related arguments.
 See C() for details.
 
+```python
+L('abc', c='b', a='underline')
+```
+
+Returns length with "pipe":
+```python
+>>> 'abc' | L
+3
+```
 
 <br />
 

@@ -31,7 +31,10 @@ def test_all():
     assert l([0], c='red', b='blue', a=attrs) == colored('1\n', 'red', 'on_blue', attrs=attrs)
 
 
+def test_pipe():
+    assert 'abc' | L == 3
+
+
 def test_raises():
     with raises(TypeError):
         L(0)
-

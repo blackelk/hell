@@ -1,14 +1,18 @@
+## 0.4.0
+2019 January 13
+- Pipe to L
+
 ## 0.3.4
 2018 January 15
-- M
+- Implemented M
 
 ## 0.3.3
 2018 January 6
-- T
+- Implemented T
 
 ## 0.3.2
 2017 December 7
-- L
+- Implemented L
 
 ## 0.3.1
 2017 June 7
@@ -16,7 +20,7 @@
 
 ## 0.3.0
 2017 May 21
-- I
+- Implemented I
 
 ## 0.2.4
 2017 May 15
@@ -36,11 +40,11 @@
 
 ## 0.2.0
 2016 Dec 2
-- F
+- Implemented F
 
 ## 0.1.0
 2016 Nov 14
-- C
-- P
-- PP
+- Implemented C
+- Implemented P
+- Implemented PP
 
