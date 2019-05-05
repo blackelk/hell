@@ -1,6 +1,10 @@
+## 0.4.1
+##### 2019 May 5
+- obj | T
+
 ## 0.4.0
 ##### 2019 January 13
-- Pipe to L
+- sized | L
 
 ## 0.3.4
 ##### 2018 January 15

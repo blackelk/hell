@@ -17,7 +17,7 @@ __author__ = 'Constantine Parkhimovich'
 __copyright__ = 'Copyright 2016-2019 Constantine Parkhimovich'
 __license__ = 'MIT'
 __title__ = 'hell'
-__version__ = '0.4.0'
+__version__ = '0.4.1'
 
 __all__ = [
     'Config',
@@ -323,8 +323,25 @@ def M(obj, c=None, b=None, a=None, sep=' | '):
     C(text, c=c, b=b, a=a)
 
 
-def T(obj, c=None, b=None, a=None):
+class _TType:
     """
-    Print the type of obj, colorized and formatted according to keyword arguments.
+    Inspect type of an object.
+
+    Can be used as function:
+    >>> T(123, c='m', a='bold')
+    <class 'int'>
+
+    Or returns type with "pipe":
+    >>> 'abc' | T
+    <class 'str'>
     """
-    C(type(obj), c=c, b=b, a=a)
+    def __ror__(self, obj):
+        return type(obj)
+
+    def __call__(self, obj, c=None, b=None, a=None):
+        """
+        Print the type of obj, colorized and formatted according to keyword arguments.
+        """
+        C(type(obj), c=c, b=b, a=a)
+
+T = _TType()

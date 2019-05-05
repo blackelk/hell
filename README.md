@@ -188,6 +188,15 @@ Print the type of _obj_, colorized and formatted according to keyword arguments.
 _c_, _b_, _a_ are optional termcolor related arguments.
 See C() for details.
 
+```python
+T(0, c='r', a='bold')
+```
+
+Returns type with "pipe":
+```python
+>>> 123 | T
+<class 'int'>
+```
 
 <br />
 

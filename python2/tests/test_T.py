@@ -29,6 +29,10 @@ def test_a_short_list():
     assert t(None, a=['u']) == colored("<type 'NoneType'>\n", attrs=['underline'])
 
 
+def test_pipe():
+    assert 123 | T is int
+
+
 def test_all():
     attrs = ['bold', 'underline']
     assert t(9, c='red', b='blue', a=attrs) == colored("<type 'int'>\n", 'red', 'on_blue',
