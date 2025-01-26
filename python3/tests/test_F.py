@@ -2,10 +2,11 @@ from io import StringIO
 
 from termcolor import colored
 
-import fixtures as fix
-from hell import Config, F
+import tests.fixtures as fix
+from hell import Config
 
 
+# Wrapping F with capture_out would be adding bias.
 Config.OUT = StringIO()
 
 
@@ -75,6 +76,8 @@ def test_methods():
     g = c.gen2()
     _test_F(81, 'Class.gen2', next, (g,))
 
+
+def test__new__():
     _test_F(87, 'Class2.__new__', fix.Class2)
 
 
@@ -105,4 +108,3 @@ def test_inheritance():
     _test_F(116, 'C2.fn2', c2.fn2)
 
     _test_F(119, 'C2.fn3', c2.fn3)
-

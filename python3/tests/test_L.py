@@ -1,38 +1,39 @@
 from pytest import raises
 from termcolor import colored
 
-from hell import L
-from conftest import capture_out
+from hell import L as L_orig
+from tests.capture_out import capture_out
 
 
-l = capture_out(L)
+L = capture_out(L_orig)
 
 
 def test_arg():
-    assert l('') == colored('0\n')
-    assert l([1]) == colored('1\n')
+    assert L('') == colored('0\n')
+    assert L([1]) == colored('1\n')
 
 
 def test_c():
-    assert l('A', c='green') == colored('1\n', 'green')
-    assert l('A', c='b') == colored('1\n', 'blue')
+    assert L('A', c='green') == colored('1\n', 'green')
+    assert L('A', c='b') == colored('1\n', 'blue')
 
 
 def test_b():
-    assert l({}, b='green') == colored('0\n', on_color='on_green')
+    assert L({}, b='green') == colored('0\n', on_color='on_green')
 
 
 def test_a_str():
-    assert l({1, 2}, a='underline') == colored('2\n', attrs=['underline'])
+    assert L({1, 2}, a='underline') == colored('2\n', attrs=['underline'])
 
 
 def test_all():
     attrs = ['bold', 'underline']
-    assert l([0], c='red', b='blue', a=attrs) == colored('1\n', 'red', 'on_blue', attrs=attrs)
+    expected = colored('1\n', 'red', 'on_blue', attrs=attrs)
+    assert L([0], c='red', b='blue', a=attrs) == expected
 
 
 def test_pipe():
-    assert 'abc' | L == 3
+    assert 'abc' | L_orig == 3
 
 
 def test_raises():

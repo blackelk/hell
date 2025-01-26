@@ -1,3 +1,6 @@
+"""
+https://github.com/blackelk/hell/blob/main/README.md
+"""
 import code
 import inspect
 import pprint
@@ -14,10 +17,10 @@ else:
 
 
 __author__ = 'Constantine Parkhimovich'
-__copyright__ = 'Copyright 2016-2019 Constantine Parkhimovich'
+__copyright__ = 'Copyright 2016-2025 Constantine Parkhimovich'
 __license__ = 'MIT'
 __title__ = 'hell'
-__version__ = '0.4.1'
+__version__ = '0.4.2'
 
 __all__ = [
     'Config',
@@ -109,13 +112,13 @@ def C(*args, sep=' ', end='\n', c='C_DEFAULT_COLOR', b=None, a=None):
             c = COLOR_SHORTCUTS[c]
         if c == 'C_DEFAULT_COLOR':
             c = Config.C_DEFAULT_COLOR
- 
+
     if b is not None:
         if len(b) == 1:
             b = COLOR_SHORTCUTS[b]
         if not b.startswith('on_'):
             b = 'on_' + b
- 
+
     if isinstance(a, str):
         a = a.split()
     if a is not None:
@@ -182,9 +185,9 @@ def F(frame=None, c=None, b=None, a=None):
     funcname = frame.f_code.co_name
 
     # Caller function could actually be a method of some object.
-    # If so, the first argument is that object.
-    #obj = None
+    # If so, the first argument is the object.
     argvalues = inspect.getargvalues(frame)
+
     if argvalues.args:
         first_arg = argvalues.locals[argvalues.args[0]]
     elif argvalues.varargs:
@@ -202,19 +205,19 @@ def F(frame=None, c=None, b=None, a=None):
         except AttributeError:
             fn = None
         else:
-            # Caller is likely a method, or classmethod, or descriptor.
-            # Check its code to make sure.
             fn = inspect.unwrap(fn)
-            if isinstance(fn, classmethod) or funcname == '__new__':
+
+            if isinstance(fn, classmethod):
                 fn = getattr(fn, '__func__', None)
+                fn = inspect.unwrap(fn)
+
             elif isinstance(fn, property):
                 fn = getattr(fn, 'fget', None)
-            fn = inspect.unwrap(fn)
+                fn = inspect.unwrap(fn)
+
             assert not hasattr(fn, '__func__')
+
             funcname = getattr(fn, '__qualname__', funcname)
-            #f_code = getattr(fn, '__code__', None)
-            #if f_code is frame.f_code:
-            #    obj = first_arg
 
     kwargs = {
         'filename': filename,
