@@ -2,10 +2,11 @@ from io import StringIO
 
 from termcolor import colored
 
-import fixtures as fix
-from hell import Config, F
+import tests.fixtures as fix
+from hell import Config
 
 
+# Wrapping F with capture_out would be adding bias.
 Config.OUT = StringIO()
 
 
@@ -22,12 +23,8 @@ def _test_F(lineno, funcname, func, f_args=(), f_kwargs=None):
     func(*f_args, **f_kwargs)
     Config.OUT.seek(pos)
 
-    filename = fix.__file__
-    if filename.endswith('.pyc'):
-        filename = filename[:-1]
-
     kwargs = {
-        'filename': filename,
+        'filename': fix.__file__,
         'lineno': lineno,
         'funcname': funcname
     }
@@ -60,11 +57,11 @@ def test_methods():
 
     _test_F(56, 'Class.fn3', c.fn3)
 
-    _test_F(60, 'fn4', fix.Class.fn4)
+    _test_F(60, 'Class.fn4', fix.Class.fn4)
 
     _test_F(64, 'fn5', c.fn5)
 
-    _test_F(68, 'fn6', lambda : c.fn6)
+    _test_F(68, 'Class.fn6', lambda : c.fn6)
 
     _test_F(39, 'Descriptor.__get__', lambda : c.descriptor)
 
@@ -72,14 +69,16 @@ def test_methods():
         c.descriptor = 0
     _test_F(42, 'Descriptor.__set__', _set)
 
-    _test_F(73, 'fn7', c.fn7)
+    _test_F(73, 'Class.fn7', c.fn7)
 
-    _test_F(78, 'fn8', fix.Class.fn8)
+    _test_F(78, 'Class.fn8', fix.Class.fn8)
 
     g = c.gen2()
     _test_F(81, 'Class.gen2', next, (g,))
 
-    _test_F(87, '__new__', fix.Class2)
+
+def test__new__():
+    _test_F(87, 'Class2.__new__', fix.Class2)
 
 
 def test_lambda():
@@ -91,16 +90,13 @@ def test_lambda():
 
 def test_wrapper_descriptors():
 
-    _test_F(94, '__init__', fix.MetaClass, ('Class3', (), {}))
-
-
-def test_metaclass():
+    _test_F(94, 'object.__init__', fix.MetaClass, ('Class3', (), {}))
 
     Class3 = fix.MetaClass('Class3', (), {})
 
     _test_F(97, 'MetaClass.__add__', lambda: (Class3 + 1))
 
-    _test_F(102, 'prop', lambda: Class3.prop)
+    _test_F(102, 'MetaClass.prop', lambda: Class3.prop)
 
 
 def test_inheritance():
@@ -112,4 +108,3 @@ def test_inheritance():
     _test_F(116, 'C2.fn2', c2.fn2)
 
     _test_F(119, 'C2.fn3', c2.fn3)
-

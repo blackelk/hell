@@ -117,4 +117,3 @@ class C2(C1):
 
     def fn3(self):
         F()
-

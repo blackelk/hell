@@ -1,3 +1,8 @@
+## 0.4.2
+##### 2025 January 26
+- tested on python 3.10 - 3.13
+- discontinued python <3.10 support
+
 ## 0.4.1
 ##### 2019 May 5
 - obj | T
@@ -51,4 +56,3 @@
 - Implemented C
 - Implemented P
 - Implemented PP
-
