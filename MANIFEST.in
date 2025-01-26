@@ -1,5 +1,7 @@
 include HISTORY.md
 include LICENSE
 include README.md
-recursive-include python2 *
-recursive-include python3 *
+include hell.py
+include requirements-dev.txt
+include setup.py
+graft tests
