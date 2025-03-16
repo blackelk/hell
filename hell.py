@@ -7,6 +7,7 @@ import pprint
 import sys
 
 import termcolor
+import traceback
 
 try:
     import readline
@@ -32,6 +33,7 @@ __all__ = [
     'P',
     'PP',
     'T',
+    'S',
 ]
 
 
@@ -149,7 +151,7 @@ def PP(obj, indent=4, width=80, depth=None, *, compact=False, c=None, b=None, a=
     C(text, c=c, b=b, a=a)
 
 
-def F(frame=None, c=None, b=None, a=None):
+def F(frame=None, c=None, b=None, a=None, depth=1):
     """
     "Where am I?"
 
@@ -179,55 +181,58 @@ def F(frame=None, c=None, b=None, a=None):
     """
     if frame is None:
         frame = inspect.currentframe().f_back
-
-    filename = frame.f_code.co_filename
-    lineno = frame.f_lineno
-    funcname = frame.f_code.co_name
+    lines = []
+    count = 0
+    while frame and count < depth:
+        count += 1
+        filename = frame.f_code.co_filename
+        lineno = frame.f_lineno
+        funcname = frame.f_code.co_name
 
     # Caller function could actually be a method of some object.
     # If so, the first argument is the object.
-    argvalues = inspect.getargvalues(frame)
+        argvalues = inspect.getargvalues(frame)
 
-    if argvalues.args:
-        first_arg = argvalues.locals[argvalues.args[0]]
-    elif argvalues.varargs:
-        varargs = argvalues.locals[argvalues.varargs]
-        if varargs:
-            first_arg = varargs[0]
+        if argvalues.args:
+            first_arg = argvalues.locals[argvalues.args[0]]
+        elif argvalues.varargs:
+            varargs = argvalues.locals[argvalues.varargs]
+            if varargs:
+                first_arg = varargs[0]
+            else:
+                first_arg = None
         else:
             first_arg = None
-    else:
-        first_arg = None
 
-    if first_arg is not None:
-        try:
-            fn = inspect.getattr_static(first_arg, funcname)
-        except AttributeError:
-            fn = None
-        else:
-            fn = inspect.unwrap(fn)
-
-            if isinstance(fn, classmethod):
-                fn = getattr(fn, '__func__', None)
+        if first_arg is not None:
+            try:
+                fn = inspect.getattr_static(first_arg, funcname)
+            except AttributeError:
+                fn = None
+            else:
                 fn = inspect.unwrap(fn)
 
-            elif isinstance(fn, property):
-                fn = getattr(fn, 'fget', None)
-                fn = inspect.unwrap(fn)
+                if isinstance(fn, classmethod):
+                    fn = getattr(fn, '__func__', None)
+                    fn = inspect.unwrap(fn)
 
-            assert not hasattr(fn, '__func__')
+                elif isinstance(fn, property):
+                    fn = getattr(fn, 'fget', None)
+                    fn = inspect.unwrap(fn)
 
-            funcname = getattr(fn, '__qualname__', funcname)
+                assert not hasattr(fn, '__func__')
+                funcname = getattr(fn, '__qualname__', funcname)
 
-    kwargs = {
-        'filename': filename,
-        'lineno': lineno,
-        'funcname': funcname,
-    }
-    text = Config.F_TEMPLATE.format(**kwargs)
-
-    C(text, c=c, b=b, a=a)
-
+        kwargs = {
+            'filename': filename,
+            'lineno': lineno,
+            'funcname': funcname,
+        }
+        text = Config.F_TEMPLATE.format(**kwargs)
+        lines.insert(0,text)
+        frame = frame.f_back
+    for text in lines:
+        C(text, c=c, b=b, a=a)
 
 def I(banner='', *, ipython=True, call_f=True, c=None, b=None, a=None):
     """
@@ -325,6 +330,10 @@ def M(obj, c=None, b=None, a=None, sep=' | '):
 
     C(text, c=c, b=b, a=a)
 
+def S(obj, c=None, b=None, a=None):
+   s_trace = traceback.format_stack()
+   formatted_trace = "/n".join(f"> {line.strip()}" for line in s_trace)
+   C(formatted_trace, c=c, b=b, a=a)
 
 class _TType:
     """
