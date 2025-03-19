@@ -3,8 +3,8 @@ from io import StringIO
 from termcolor import colored
 
 import tests.fixtures as fix
-from hell import Config
-from hell import F
+from hell import Config, F
+
 
 
 # Wrapping F with capture_out would be adding bias.
@@ -121,7 +121,7 @@ def test_depth_10():
 
 def test_depth_2():
     pos = Config.OUT.tell()
-    fix.fn2_depth2()# Call F() at the deepest level
+    fix.fn2_depth2()
     Config.OUT.seek(pos)
     kwargs1 = {
         'filename': fix.__file__,
@@ -136,7 +136,6 @@ def test_depth_2():
     expected_line_1 = colored(Config.F_TEMPLATE.format(**kwargs1))
     expected_line_2 = colored(Config.F_TEMPLATE.format(**kwargs2))
     result_lines = Config.OUT.read().strip().split('\n')
-    #import code; code.interact(local=locals())
     assert len(result_lines) == 2
     assert result_lines == [expected_line_1, expected_line_2]
 
@@ -146,4 +145,4 @@ def test_depth_0():
     F(depth=0)
     Config.OUT.seek(pos)
     output = Config.OUT.read().strip()
-    assert output == "", f"Expected empty output, got: {output}"
+    assert output == ""
