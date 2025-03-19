@@ -330,11 +330,6 @@ def M(obj, c=None, b=None, a=None, sep=' | '):
 
     C(text, c=c, b=b, a=a)
 
-def S(obj, c=None, b=None, a=None):
-   s_trace = traceback.format_stack()
-   formatted_trace = "/n".join(f"> {line.strip()}" for line in s_trace)
-   C(formatted_trace, c=c, b=b, a=a)
-
 class _TType:
     """
     Inspect type of an object.
