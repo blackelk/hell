@@ -5,9 +5,7 @@ import code
 import inspect
 import pprint
 import sys
-
 import termcolor
-import traceback
 
 try:
     import readline
@@ -32,8 +30,7 @@ __all__ = [
     'M',
     'P',
     'PP',
-    'T',
-    'S',
+    'T',    
 ]
 
 
