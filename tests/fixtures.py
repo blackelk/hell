@@ -117,3 +117,13 @@ class C2(C1):
 
     def fn3(self):
         F()
+
+
+def fn0_depth2():
+    F(depth=2)
+
+def fn1_depth2():
+    fn0_depth2()
+
+def fn2_depth2():
+    fn1_depth2()
