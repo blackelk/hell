@@ -2,6 +2,10 @@ include HISTORY.md
 include LICENSE
 include README.md
 include hell.py
+include pyproject.toml
 include requirements-dev.txt
-include setup.py
-graft tests
+
+prune tests
+
+global-exclude __pycache__ *.py[cod] *.pyo
+prune **/__pycache__

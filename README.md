@@ -9,23 +9,33 @@ pip install hell
 ```
 
 ### Requirements
-hell supports **python 3.4+** and **2.7**
-
-[termcolor](https://pypi.python.org/pypi/termcolor)
+- python >= 3.10
+- [termcolor](https://pypi.org/project/termcolor/)
 
 
 ## Usage
-In hell there is a collection of functions with short uppercase names. Most of them print colorized formatted output. Most of them accept short keyword arguments as options.
+There is a collection of functions with short uppercase names. \
+Most of them print colorized formatted output. \
+Most of them accept short keyword arguments as options.
 
 ### Colors
-+ red
-+ green (default)
-+ blue
-+ cyan
-+ magenta
-+ yellow
-+ white
-+ grey
+- `black`
+- `grey`  (Actually black but kept for backwards compatibility)
+- `red`
+- `green`
+- `yellow`
+- `blue`
+- `magenta`
+- `cyan`
+- `light_grey`
+- `dark_grey`
+- `light_red`
+- `light_green`
+- `light_yellow`
+- `light_blue`
+- `light_magenta`
+- `light_cyan`
+- `white`
 
 The first letters are shortcuts for colors:
 `r`, `g`, `b`, `c`, `m`, `y`, `w` . grey has no shortcut.
@@ -43,13 +53,13 @@ The first letters can be used as well:
 
 
 ### Configuration
-There is `Config` class to adjust hell. Options are:
+There is a `Config` class to adjust hell. Options are:
 
-| option            | default    | description                                      |
-| ----------------- | ---------- | ------------------------------------------------ |
-| C\_DEFAULT\_COLOR | 'green'    | Default color of C() output                      |
-| F\_TEMPLATE       | '--> {filename} line {lineno} {funcname}()'    | Format string used in F() |
-| OUT               | sys.stdout | Writable file-like object to redirect output to. |
+| option            | default      | description                                      |
+| ----------------- | ------------ | ------------------------------------------------ |
+| `C_DEFAULT_COLOR` | `'green'`    | Default color of C() output                      |
+| `F_TEMPLATE`      | `'--> {filename} line {lineno} {funcname}()'`    | Format string used in F() |
+| `OUT`             | `sys.stdout` | Writable file-like object to redirect output to. |
 
 Example configuration change:
 ```python
@@ -58,16 +68,27 @@ hell.Config.OUT = open('/tmp/debug.out', 'a')
 ```
 
 
-## Tools
+## Functions
+
+- [C](#c)
+- [F](#f)
+- [I](#i)
+- [L](#l)
+- [M](#m)
+- [P](#p)
+- [PP](#pp)
+- [T](#t)
 
 
-**C**(\*_args_, _sep=' '_, _end='\\n'_, _c='C\_DEFAULT\_COLOR'_, _b=None_, _a=None_)
+## C
+
+**C**(`*args`, _sep_=`' '`, _end_=`'\n'`, _c_=`C_DEFAULT_COLOR`, _b_=`None`, _a_=`None`)
 
 Print _args_, colorized and formatted according to kwargs.
 
-| kwarg | description      | default             |
-| ----- | ---------------- | ------------------- |
-| c     | color            | 'C\_DEFAULT\_COLOR' |
+| kwarg | description      | default                  |
+| ----- | ---------------- | ------------------------ |
+| c     | color            | `Config.C_DEFAULT_COLOR` |
 | b     | background color |
 | a     | attributes, str like 'bold' or 'b u' or list of strings like ['bold', 'underline'] |
 | sep   | separator, same as in built-in print                                      |
@@ -86,10 +107,9 @@ C(123, 456, sep='|', end='.')
 ```
 
 
-<br />
+## F
 
-- - - -
-**F**(_frame=None_, _c=None_, _b=None_, _a=None_)
+**F**(_frame_=`None`, _c_=`None`, _b_=`None`, _a_=`None`, _depth_=`1`)
 
 _"Where am I?"_
 
@@ -100,31 +120,33 @@ If _frame_ is not provided, frame called F() will be used.
 Info includes:
 - python filename
 - line number
-- name of function that called F.
+- name of function that called `F`.
 - name of type if function is its method or classmethod
 
 Info is being formatted using `Config.F_TEMPLATE`
 
+_depth_ is to control number of stack frames to inspect.
+E.g. `depth=2` is to print info on the function calling `F` and its caller.
+
 _c_, _b_, _a_ are optional termcolor related arguments.
-See C() for details.
+See [C](#c) for details.
 
 Example usage:
 
 ```python
 class Class:
     def function(self):
-        F()
+        F() # E.g. this lineno is 114
 ```
 Will print:
 ```
-/path/to/module.py line 105 Class.function()
+/path/to/module.py line 114 Class.function()
 ```
 
 
-<br />
+## I
 
-- - - -
-**I**(_banner=''_, _ipython=True_, _call\_f=True_,_c=None_, _b=None_, _a=None_)
+**I**(_banner_=`''`, _ipython_=`True`, _call\_f_=`True`, _c_=`None`, _b_=`None`, _a_=`None`)
 
 Emulate interactive Python console.
 
@@ -139,18 +161,18 @@ _ipython=True_ indicates using IPython console if available.
 When _call\_f_ is true, F() will be called printing info where I() was called.
 
 _c_, _b_, _a_ are optional termcolor related arguments.
-See C() for details.
+See [C](#c) for details.
 
 
-<br />
 
-- - - -
-**L**(_sized_, _c=None_, _b=None_, _a=None_)
+## L
+
+**L**(_sized_, _c_=`None`, _b_=`None`, _a_=`None`)
 
 Print the length of _sized_, colorized and formatted according to keyword arguments.
 
 _c_, _b_, _a_ are optional termcolor related arguments.
-See C() for details.
+See [C](#c) for details.
 
 ```python
 L('abc', c='b', a='underline')
@@ -162,54 +184,32 @@ Returns length with "pipe":
 3
 ```
 
-<br />
 
-- - - -
-**M**(_obj_, _c=None_, _b=None_, _a=None_)
+## M
 
-Print the base classes of type of the _obj_,
+**M**(_obj_, _c_=`None`, _b_=`None`, _a_=`None`, _sep_=`' | '`)
+
+Print the base classes of type of the _obj_, \
 or of the _obj_ itself when it is a type.
 
-Bases will be in Method Resolution Order,
-separated with _sep_,
+Bases will be in Method Resolution Order, \
+separated with _sep_, \
 colorized and formatted according to keyword arguments.
 
 _c_, _b_, _a_ are optional termcolor related arguments.
-See C() for details.
+See [C](#c) for details.
 
 
-<br />
+## P
 
-- - - -
-**T**(_obj_, _c=None_, _b=None_, _a=None_)
-
-Print the type of _obj_, colorized and formatted according to keyword arguments.
-
-_c_, _b_, _a_ are optional termcolor related arguments.
-See C() for details.
-
-```python
-T(0, c='r', a='bold')
-```
-
-Returns type with "pipe":
-```python
->>> 123 | T
-<class 'int'>
-```
-
-<br />
-
-- - - -
-**P**(\*_args_, _sep=' '_, _end='\\n'_)
+**P**(`*args`, _sep_=`' '`, _end_=`'\n'`)
 
 Shortcut for built-in function _print_ writing to `Config.OUT`
 
 
-<br />
+## PP
 
-- - - -
-**PP**(_obj_, _indent=4_, _width=80_, _depth=None_, _compact=False_, _c=None_, _b=None_, _a=None_)
+**PP**(_obj_, _indent_=`4`, _width_=`80`, _depth_=`None`, _compact_=`False`, _c_=`None`, _b_=`None`, _a_=`None`)
 
 Pretty-print colorized python object.
 
@@ -219,9 +219,9 @@ Pretty-print colorized python object.
 | width   | desired output width                                 | 80
 | depth   | number of levels which may be printed                | not limited
 | compact<br />(python3)| format as many items as will fit within the width<br /> on each output line | False
-| c       | text color, see function C                           | None
-| b       | background color, see function C                     | None
-| a       | attributes, see function C                           | None
+| c       | text color, see function [C](#c)                     | None
+| b       | background color, see function [C](#c)               | None
+| a       | attributes, see function [C](#c)                     | None
 
 ```python
 from hell import PP
@@ -234,3 +234,26 @@ will print
     5, 6, 7, 8, 9,
         10, 11]
 ```
+
+
+## T
+
+**T**(_obj_, _c_=`None`, _b_=`None`, _a_=`None`)
+
+Print the type of _obj_, colorized and formatted according to keyword arguments.
+
+_c_, _b_, _a_ are optional termcolor related arguments.
+See [C](#c) for details.
+
+```python
+T(0, c='r', a='bold')
+```
+
+Returns type with "pipe":
+```python
+>>> 123 | T
+<class 'int'>
+```
+
+# Contributing
+[Read here](https://github.com/blackelk/hell/blob/main/Contributing.md)
