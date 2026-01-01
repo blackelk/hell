@@ -8,8 +8,9 @@ pytest tests
 pylint tests/test_*
 ```
 
-# Packaging
-In `pyproject.toml` append `.dev1` to `version`, or increase number if there is already `.devN`.
+## Packaging
+In `pyproject.toml` append `.dev1` to `version`, \
+or increase number if there is already `.devN`.
 ```
 rm -r hell.egg-info dist
 python -m build

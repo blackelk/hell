@@ -8,7 +8,6 @@ description = "When you've got to debug your code."
 
 authors = [
   { name="Constantine Parkhimovich", email="cparkhimovich@gmail.com" },
-  { name="Kateryna Fyliuk"},
 ]
 
 maintainers = [
