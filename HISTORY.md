@@ -1,5 +1,5 @@
 ## 0.4.2
-##### 2025 December 31
+##### 2026 January 1
 - `F(depth=N)`
 - tested on python 3.10 - 3.13
 - discontinued python <3.10 support
