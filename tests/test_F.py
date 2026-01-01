@@ -6,7 +6,6 @@ import tests.fixtures as fix
 from hell import Config, F
 
 
-
 # Wrapping F with capture_out would be adding bias.
 Config.OUT = StringIO()
 
@@ -110,19 +109,26 @@ def test_inheritance():
 
     _test_F(119, 'C2.fn3', c2.fn3)
 
+
 def test_depth_10():
     """Test F() with depth=10 to ensure it prints up to 10 levels of stack frames."""
     pos = Config.OUT.tell()
+
     F(depth=10)  # Call F() at the deepest level
     Config.OUT.seek(pos)
+
     # Read all 10 expected lines
     output_lines = Config.OUT.read().strip().split('\n')
+
     assert len(output_lines) == 10
+
 
 def test_depth_2():
     pos = Config.OUT.tell()
+
     fix.fn2_depth2()
     Config.OUT.seek(pos)
+
     kwargs1 = {
         'filename': fix.__file__,
         'lineno': 126,
@@ -135,9 +141,12 @@ def test_depth_2():
     }
     expected_line_1 = colored(Config.F_TEMPLATE.format(**kwargs1))
     expected_line_2 = colored(Config.F_TEMPLATE.format(**kwargs2))
+
     result_lines = Config.OUT.read().strip().split('\n')
+
     assert len(result_lines) == 2
     assert result_lines == [expected_line_1, expected_line_2]
+
 
 def test_depth_0():
     """Test F() with depth=0 to ensure it prints only the current stack frame."""
@@ -145,4 +154,4 @@ def test_depth_0():
     F(depth=0)
     Config.OUT.seek(pos)
     output = Config.OUT.read().strip()
-    assert output == ""
+    assert output == ''

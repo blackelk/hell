@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hell"
+description = "When you've got to debug your code."
+
+authors = [
+  { name="Constantine Parkhimovich", email="cparkhimovich@gmail.com" },
+  { name="Kateryna Fyliuk"},
+]
+
+maintainers = [
+  { name="Constantine Parkhimovich", email="cparkhimovich@gmail.com" },
+]
+
+version = "0.4.2"
+
+dependencies = [
+    "termcolor",
+]
+requires-python = ">=3.10"
+
+readme = "README.md"
+
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries :: Python Modules"
+]
+keywords = ["debug", "console"]
+
+license = "MIT"
+license-files = ["LICENSE"]
+
+[project.urls]
+Homepage = "https://github.com/blackelk/hell"
+Repository = "https://github.com/blackelk/hell.git"
+Issues = "https://github.com/blackelk/hell/issues"
+Changelog = "https://github.com/blackelk/hell/blob/main/HISTORY.md"
