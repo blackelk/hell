@@ -7,3 +7,5 @@ include pyproject.toml
 prune tests
 
 global-exclude __pycache__ *.py[cod] *.pyo
+global-exclude *.egg-info
+global-exclude *.swp

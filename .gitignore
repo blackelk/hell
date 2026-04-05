@@ -2,6 +2,5 @@
 *.pyo
 __pycache__
 .cache
-
+.pytest_cache
 *.swp
-

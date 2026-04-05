@@ -1,8 +1,8 @@
 ## 0.4.2
 ##### 2026 January 1
 - `F(depth=N)`
-- tested on python 3.10 - 3.13
-- discontinued python <3.10 support
+- Tested on python 3.10 - 3.13
+- Discontinued python <3.10 support
 
 ## 0.4.1
 ##### 2019 May 5
@@ -37,23 +37,23 @@
 - Ported to python2.7
 
 ## 0.2.3
-##### 2017 Jan 30
+##### 2017 January 30
 - Unit tests
 
 ## 0.2.2
-##### 2016 Dec 7
+##### 2016 December 7
 - Multiple attributes as space-delimited string
 
 ## 0.2.1
-##### 2016 Dec 4
+##### 2016 December 4
 - Shortcuts for colors and attributes
 
 ## 0.2.0
-##### 2016 Dec 2
+##### 2016 December 2
 - Implemented `F`
 
 ## 0.1.0
-##### 2016 Nov 14
+##### 2016 November 14
 - Implemented `C`
 - Implemented `P`
 - Implemented `PP`

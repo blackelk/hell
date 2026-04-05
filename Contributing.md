@@ -17,5 +17,7 @@ python -m build
 virtualenv /tmp/try_hell_wheel
 source /tmp/try_hell_wheel/bin/activate
 pip install dist/hell-*.whl
+python -m hell
+
 twine upload  --verbose --repository testpypi dist/*
 ```
